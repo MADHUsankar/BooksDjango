@@ -1,0 +1,65 @@
+<html>
+    <head>
+       <title>Registration Form</title>
+        
+   
+    </head>
+    <body>
+      <h1>Registration </h1>
+      {% for user in users %}
+            {{user.first_name}},{{user.last_name}},{{user.emailid}},{{user.password}},{{user.id}}
+        {% endfor %}
+        
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form action="{% url 'users:my_register'%}" method ="post">
+        {% csrf_token %}
+        <p>
+        <label for="first_name">FirstName:</label>
+        <input type="text" id ="firstname" name="first_name">
+        </p>
+        <p>
+        <label for="last_name">LastName:</label>
+        <input type="text" id ="lastname" name="last_name">
+        </p>
+        <p>
+        <label for="emailid">Email Id:</label>
+        <input type="text" id ="emailid" name="emailid">
+
+        </p><p>
+        <label for="password">PASSWORD:</label>
+        <input type="password" id ="password" name="password">
+        </p>
+        <p>
+        <label for="reenterpassword">Reenter PASSWORD:</label>
+        <input type="password" id ="password" name="reenterpassword">
+        </p><p>
+        <input type = "hidden" name = "action" value="Register">
+        <input  type="submit" value="Register">
+        </form>
+
+        <h1> Login </h1>
+        <form action="{% url 'users:my_loginuser'%}"  method ="post">
+        {% csrf_token %}
+            <p>
+            <label for="emailid">Email Id:</label>
+            <input type="text" id ="emailid" name="emailid"
+            </p><p>
+            <label for="password">PASSWORD:</label>
+            <input type="password" id ="password" name="password"
+            </p><p>
+            <input type = "hidden" name = "action" value="Login">
+            <input  type="submit" value="Login">
+            </p>
+        </form>
+
+
+    </body>
+</html>

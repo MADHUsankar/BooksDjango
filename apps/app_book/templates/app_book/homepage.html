@@ -1,0 +1,39 @@
+<html>
+    <head>
+       <title>Home Page</title>
+        
+   
+    </head>
+    <body>
+      <h1>Welcome {{name}}</h1>
+      <a href = {% url 'books:add_book'%} target="_blank">Add Book and Review</a>
+      <a href = {% url 'books:logout'%}>LOGOUT</a>
+      <h4> Recent Book Reviews: </h4>
+      <table>
+ 
+        {% for book in books %}
+        <td>
+        <tr><br> <br><a href={% url 'books:show_book' book.id %} target="_blank">{{book.booktitle}}  </a> <br> <br> </tr>
+            {% for auth in author %}
+                {% if auth.bookauthor.id == book.id %}
+ 
+                Author Name : <tr> {{auth.authorname}}<br>
+                     
+                {%endif%}
+                {% endfor %}
+        
+
+            {% for review in reviews %}
+                {% if review.bookreview.id == book.id %}
+ 
+                <tr> {{review.userreview.first_name}}, {{review.reviewcontent}},
+                      {{review.bookrating}}
+                    <br> Posted on {{review.created_at}}<br> </tr>
+                {%endif%}
+                {% endfor %}
+        </form>
+        </td>
+        {% endfor%}
+        </table>
+
+

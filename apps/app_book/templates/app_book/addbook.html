@@ -1,0 +1,47 @@
+<html>
+    <head>
+       <title>Add Book and Review</title>
+       
+    </head>
+    <body>
+     <h1>Add a new Book Title and a Review:</h1>
+  
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+             
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+     <form action="{% url 'books:add_book'%}" method ="post">
+        {% csrf_token %}
+        <p>
+        <label for="book_title">Book Title:</label>
+        <input type="text" id ="book_title" name="book_title">
+        </p>
+        <p>
+        <label for="new_author">add a new author:</label>
+        <input type="text" id ="new_author" name="new_author">
+        </p>
+        <p>
+        Review : 
+        </p>
+        <p>
+        
+        <textarea name = "review" rows = "5" cols = "80"></textarea>
+        </p>
+         
+        Rating : <select name="rating">
+                <option selected disabled >0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+        </select>
+        </p>
+        
+
+        <p><input  type="submit" value="Add Book and Review">
+        </form>

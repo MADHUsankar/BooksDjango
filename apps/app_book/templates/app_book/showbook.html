@@ -1,0 +1,50 @@
+<html>
+    <head>
+       <title>Add Book and Review</title>
+        
+   
+    </head>
+    <body>
+      <h1></h1>
+      
+     
+      <h1> {{bookdata.booktitle}} </h4>
+      <h2> Author: {{authordata.authorname}}</h2> <br>
+      <h3><table>
+            {% for review in reviewdata %}
+             <td>
+            
+             <tr> Rating : {{review.bookrating}} </tr><br>
+              <tr><a href = {% url 'books:show_user' userid %} target="_blank"> {{review.userreview.first_name}} </a>
+                   says: {{review.reviewcontent}}
+               </tr><br>
+               <tr>Posted on {{review.created_at}} <tr>
+               {% if review.userreview.id == userid %}
+                <a href = {% url 'books:delete_review' review.id%} >Delete this Review</a>
+                   
+                {% endif %}
+                <hr>
+            {% endfor %}
+        </h3>
+   
+
+ 
+    <form action="{% url 'books:show_book' bookdata.id%}" method ="post">
+        {% csrf_token %}
+       Add a Review : <p> 
+         <textarea name = "review" rows = "5" cols = "80"></textarea>
+          </p>
+          <p>
+            Rating : <select name="rating">
+                <option selected disabled >0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </p>
+        <p><input  type="submit" value="Submit Review">
+        </form>
+
+
