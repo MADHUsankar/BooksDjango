@@ -1,0 +1,40 @@
+#reg{
+    display:inline-block;
+ 
+}
+#login{
+    display:inline-block;
+    margin :0px 0px 0px 133px;
+    position: relative;
+    bottom: 127px;
+ 
+}
+#error{
+        display:inline-block;
+        color:red;  
+        position: relative;
+        bottom: 7px;
+        
+
+}
+#error ul {
+    list-style: none;
+}
+*{
+    background-color: lavender;
+}
+#scrolldiv{
+    max-height: 250px;
+    overflow-y: scroll;
+ border-style: solid;
+     border-color: black;
+}
+#scrolldivbox{
+   
+
+    width: 400px;
+    position: relative;
+    left: 700px;
+    bottom: 1050px;
+     
+}

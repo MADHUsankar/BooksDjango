@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 import bcrypt
+import re
+EMAIL_REGEX = re.compile(r'^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9._-]+\.[a-zA-Z]+$')
 
 class UserManager(models.Manager):
     def register(self, postData):
@@ -11,23 +13,36 @@ class UserManager(models.Manager):
         if not postData['first_name'] or len(postData['first_name']) <3:
             print "fname error"
             results['status'] = False
-            results['errors'].append("Please enter valid first name")
+            results['errors'].append("Please enter first name")
+        elif not postData['first_name'].isalpha():
+            results['status'] = False
+            results['errors'].append("Please enter only letters for first name")
         if not postData['last_name'] or len(postData['last_name']) <3:
             results['status'] = False
-            results['errors'].append("Please enter valid last name")
-        if not postData['emailid']:
+            results['errors'].append("Please enter last name")
+        elif not postData['last_name'].isalpha():
             results['status'] = False
-            results['errors'].append("Please enter valid emailid")
+            results['errors'].append("Please enter only letters for last name")
+        if not postData['emailid'] or len(postData['emailid']) <1:
+            results['status'] = False
+            results['errors'].append("Please enter emailid")
+        elif not EMAIL_REGEX.match(postData['emailid']):
+            results['status'] = False
+            results['errors'].append("Please enter a valid emailid")
         if not postData['password'] or len(postData['password']) <4:
             results['status'] = False
             results['errors'].append("Password must be atleat 4 characters long")
         if postData['reenterpassword'] != postData['password']:
             results['status'] = False
             results['errors'].append("Passwords do not match")
+        if not results['status']:
+            return results
+       
         x = User.objects.filter(emailid = postData['emailid'])
+
         try:
             if x[0]:
-                results['errors'].append("It already exists")
+                results['errors'].append("User already exists")
                 results['status'] = False
         except:
             if results['status']:
@@ -42,11 +57,13 @@ class UserManager(models.Manager):
     def loginval(self, postData):
         results = {'status': True, 'errors': [],'user':None}
 
-
-        if not postData['emailid']:
+        print postData
+        if not postData['emailid'] or len(postData['emailid']) <1:
             results['status'] = False
-            results['errors'].append("Please enter valid emailid")
-        print "asdfghjkl"
+            results['errors'].append("Please enter emailid")
+        elif not EMAIL_REGEX.match(postData['emailid']):
+            results['status'] = False
+            results['errors'].append("Please enter a valid emailid")
         if not postData['password'] or len(postData['password']) <4:
             results['status'] = False
             results['errors'].append("Password must be atleat 4 characters long")

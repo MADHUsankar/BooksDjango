@@ -1,17 +1,30 @@
 <html>
     <head>
        <title>User Reviews</title>
-        
+             {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_reglogin/stylesheets/loginregstyle.css' %}">
+       
+
    
     </head>
     <body>
       <h1></h1>
+      <p> <a href = {% url 'books:home_page'%} >Home</a>
+       <a href = {% url 'books:add_book'%} target="_blank">Add Book and Review</a>
+      <a href = {% url 'books:logout'%}>Logout</a>
+      
+       </p>
+     
+      <h1>User Alias: {{userdata.first_name}} </h4>
+     <h2>Name: {{userdata.first_name}}  {{userdata.last_name}}</h2> <br>
+     <h2>Email: {{userdata.emailid}}</h2> <br>
+     <h2>Total Review: {{reviewcount}}</h2> <br>
+
+     {% for review in reviewdata %}
+       <a href={% url 'books:show_book' review.bookreview.id %} target="_blank">{{review.bookreview.booktitle}}</a><br>
       
      
-      <h1> User Alias: {{userdata.first_name}} </h4>
-     <h2>Name: {{userdata.first_name}} + {{userdata.last_name}}</h2> <br>
-     <h2>Email: {{userdata.emailid}}</h2> <br>
-     <h2>Total Review: </h2> <br>
+      {% endfor %}
  
 
 

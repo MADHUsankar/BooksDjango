@@ -1,13 +1,17 @@
 <html>
     <head>
        <title>Add Book and Review</title>
-        
+              {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_reglogin/stylesheets/loginregstyle.css' %}">
+       
    
     </head>
     <body>
       <h1></h1>
-      
-     
+      <p>
+      <a href = {% url 'books:home_page'%} >Home</a>
+      <a href = {% url 'books:logout'%}>Logout</a>
+     </p>
       <h1> {{bookdata.booktitle}} </h4>
       <h2> Author: {{authordata.authorname}}</h2> <br>
       <h3><table>
@@ -15,7 +19,7 @@
              <td>
             
              <tr> Rating : {{review.bookrating}} </tr><br>
-              <tr><a href = {% url 'books:show_user' userid %} target="_blank"> {{review.userreview.first_name}} </a>
+              <tr><a href = {% url 'books:show_user' review.userreview.id %} target="_blank"> {{review.userreview.first_name}} </a>
                    says: {{review.reviewcontent}}
                </tr><br>
                <tr>Posted on {{review.created_at}} <tr>

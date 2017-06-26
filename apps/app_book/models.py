@@ -24,7 +24,8 @@ class bookManager(models.Manager):
             print "In validation3 "
             results['status'] = False
             results['errors'].append("Please enter a Review")
-           
+        print "rating"
+        print postData['rating']
         print int(postData['rating'])
         if int(postData['rating'])<1:
             print "In validation4 "

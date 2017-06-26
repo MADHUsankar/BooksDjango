@@ -1,11 +1,12 @@
 <html>
     <head>
        <title>Registration Form</title>
-        
+          {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_reglogin/stylesheets/loginregstyle.css' %}">
    
     </head>
     <body>
-      <h1>Registration </h1>
+        <div id="error">
       {% for user in users %}
             {{user.first_name}},{{user.last_name}},{{user.emailid}},{{user.password}},{{user.id}}
         {% endfor %}
@@ -18,11 +19,15 @@
                 {% endfor %}
             </ul>
         {% endif %}
-        
+        </div>
+      <h1>Registration </h1>
+
+        <div id="reg">
         <form action="{% url 'users:my_register'%}" method ="post">
         {% csrf_token %}
         <p>
         <label for="first_name">FirstName:</label>
+        
         <input type="text" id ="firstname" name="first_name">
         </p>
         <p>
@@ -31,26 +36,27 @@
         </p>
         <p>
         <label for="emailid">Email Id:</label>
-        <input type="text" id ="emailid" name="emailid">
+        <input type="email" id ="emailid" name="emailid">
 
         </p><p>
-        <label for="password">PASSWORD:</label>
+        <label for="password">Password:</label>
         <input type="password" id ="password" name="password">
         </p>
         <p>
-        <label for="reenterpassword">Reenter PASSWORD:</label>
+        <label for="reenterpassword">Reenter Password:</label>
         <input type="password" id ="password" name="reenterpassword">
         </p><p>
         <input type = "hidden" name = "action" value="Register">
         <input  type="submit" value="Register">
         </form>
-
+        </div>
+        <div id="login">
         <h1> Login </h1>
         <form action="{% url 'users:my_loginuser'%}"  method ="post">
         {% csrf_token %}
             <p>
             <label for="emailid">Email Id:</label>
-            <input type="text" id ="emailid" name="emailid"
+            <input type="email" id ="emailid" name="emailid"
             </p><p>
             <label for="password">PASSWORD:</label>
             <input type="password" id ="password" name="password"
@@ -59,6 +65,7 @@
             <input  type="submit" value="Login">
             </p>
         </form>
+        </div>
 
 
     </body>

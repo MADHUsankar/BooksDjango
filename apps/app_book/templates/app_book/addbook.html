@@ -1,9 +1,14 @@
 <html>
     <head>
        <title>Add Book and Review</title>
-       
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_reglogin/stylesheets/loginregstyle.css' %}">
     </head>
     <body>
+        <p>
+     <a href = {% url 'books:home_page'%} >Home</a>
+      <a href = {% url 'books:logout'%}>Logout</a>
+      </p>
      <h1>Add a new Book Title and a Review:</h1>
   
         {% if messages %}

@@ -1,13 +1,17 @@
 <html>
     <head>
        <title>Home Page</title>
+                 {% load staticfiles %}
+            <link rel="stylesheet" href="{% static 'app_reglogin/stylesheets/loginregstyle.css' %}">
         
    
     </head>
     <body>
-      <h1>Welcome {{name}}</h1>
+        <p>
+      <h1>Welcome {{name}}!</h1>
       <a href = {% url 'books:add_book'%} target="_blank">Add Book and Review</a>
-      <a href = {% url 'books:logout'%}>LOGOUT</a>
+      <a href = {% url 'books:logout'%}>Logout</a>
+      </p>
       <h4> Recent Book Reviews: </h4>
       <table>
  
@@ -29,11 +33,26 @@
                 <tr> {{review.userreview.first_name}}, {{review.reviewcontent}},
                       {{review.bookrating}}
                     <br> Posted on {{review.created_at}}<br> </tr>
+                   
                 {%endif%}
                 {% endfor %}
+
+
         </form>
         </td>
         {% endfor%}
+        <div id ="scrolldivbox">
+         <h3> Books with Reviews</h3>   
+         <div id ="scrolldiv">
+            
+            {% for review in reviews %}
+                 <a href={% url 'books:show_book' review.bookreview.id %} target="_blank">{{review.bookreview.booktitle}}</a><br>
+                
+
+            {% endfor %}
+ 
+        </div>
+        </div>
         </table>
 
 

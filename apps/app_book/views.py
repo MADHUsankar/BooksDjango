@@ -37,7 +37,7 @@ def addbook(request):
             for error in result['errors']:
                 messages.error(request,error)
                 print "here"
-                return redirect(reverse('books:add_book'))
+            return redirect(reverse('books:add_book'))
         else: 
             messages.success(request,"Successful")
             return redirect(reverse('books:home_page'))
@@ -77,11 +77,12 @@ def  showbook(request,id):
         }
         #return redirect(reverse('show',kwargs={'id':id}))
         return render(request,'app_book/showbook.html', context)
+        
 def showuser(request,id):
     context = {
         'userdata' :User.objects.get(id=id),
-        #'bookdata' :Book.objects.get((userbook__id)=id),
-        'reviewdata' :Review.objects.filter((userreview__id)=id)
+        'reviewdata' :Review.objects.filter((userreview__id)=id).distinct(),
+        'reviewcount' :Review.objects.filter((userreview__id)=id).count()
         }
         #return redirect(reverse('show',kwargs={'id':id}))
     return render(request,'app_book/showuser.html', context)
